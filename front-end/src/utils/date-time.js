@@ -50,6 +50,54 @@ export function today() {
 }
 
 /**
+ * @param date as YYYY-MM-DD.
+ * @returns day of the week
+ */
+export function getDayOfWeek(date) {
+  const dayOfWeek = new Date(date).getDay();
+
+  return isNaN(dayOfWeek)
+    ? null
+    : [
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+        "sunday",
+      ][dayOfWeek];
+}
+
+/**
+ * @params 1st date string and 2nd date string in format YYYY-MM-DD
+ * checks if first param date is before second param date
+ * @returns true or false
+ */
+export function dateIsBeforeOtherDate(date1, date2) {
+  const date1Els = date1.split("-");
+  const date2Els = date2.split("-");
+  for (let i = 0; i < date1Els.length; i++) {
+    if (+date1Els[i] < +date2Els[i]) {
+      return true;
+    }
+    if (+date1Els[i] > +date2Els[i]) {
+      return false;
+    }
+  }
+  return null;
+}
+
+/**
+ * @returns {*}
+ * the current time format in HH:MM
+ */
+export function time() {
+  const today = new Date();
+  return today.getHours() + ":" + today.getMinutes();
+}
+
+/**
  * Subtracts one day to the specified date and return it in as YYYY-MM-DD.
  * @param currentDate
  *  a date string in YYYY-MM-DD format (this is also ISO-8601 format)
@@ -57,7 +105,7 @@ export function today() {
  *  the date one day prior to currentDate, formatted as YYYY-MM-DD
  */
 export function previous(currentDate) {
-  let [ year, month, day ] = currentDate.split("-");
+  let [year, month, day] = currentDate.split("-");
   month -= 1;
   const date = new Date(year, month, day);
   date.setMonth(date.getMonth());
@@ -73,7 +121,7 @@ export function previous(currentDate) {
  *  the date one day after currentDate, formatted as YYYY-MM-DD
  */
 export function next(currentDate) {
-  let [ year, month, day ] = currentDate.split("-");
+  let [year, month, day] = currentDate.split("-");
   month -= 1;
   const date = new Date(year, month, day);
   date.setMonth(date.getMonth());

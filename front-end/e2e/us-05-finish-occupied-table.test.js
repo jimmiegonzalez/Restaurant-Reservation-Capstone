@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const { setDefaultOptions } = require('expect-puppeteer');
+const { setDefaultOptions } = require("expect-puppeteer");
 const fs = require("fs");
 const fsPromises = fs.promises;
 
@@ -40,7 +40,6 @@ describe("US-05 - Finish an occupied table - E2E", () => {
         reservation_time: "13:45",
         people: 4,
       });
-
       table = await createTable({
         table_name: `#${Date.now().toString(10)}`,
         capacity: 99,
@@ -61,7 +60,6 @@ describe("US-05 - Finish an occupied table - E2E", () => {
         path: ".screenshots/us-05-dashboard-finish-button-before.png",
         fullPage: true,
       });
-
       const containsOccupied = await containsText(
         page,
         `[data-table-id-status="${table.table_id}"]`,
@@ -72,7 +70,6 @@ describe("US-05 - Finish an occupied table - E2E", () => {
 
       const finishButtonSelector = `[data-table-id-finish="${table.table_id}"]`;
       await page.waitForSelector(finishButtonSelector);
-
       page.on("dialog", async (dialog) => {
         expect(dialog.message()).toContain(
           "Is this table ready to seat new guests?"
@@ -96,7 +93,6 @@ describe("US-05 - Finish an occupied table - E2E", () => {
         `[data-table-id-status="${table.table_id}"]`,
         "free"
       );
-
       expect(containsFree).toBe(true);
     });
 
